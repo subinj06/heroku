@@ -21,6 +21,21 @@ allrecep = reception.find()
 
 
 def index(request):
+
+    connecip = 'mongodb+srv://graduate:graduate@graduate.gw2nh.mongodb.net/<dbname>?retryWrites=true&w=majority'
+    # connecip = 'mongodb+srv://graduate:graduate@graduate-pri.gw2nh.mongodb.net/Graduate?retryWrites=true&w=majority'
+
+    cluster = MongoClient(connecip)
+    db = cluster["graduate"]
+
+    pill=db["pill"]
+    reception=db["reception"]
+    sell = db["sell"]
+
+    allpill = pill.find()
+    allsell= sell.find()
+    allrecep = reception.find()
+    
     str1= ' <html><head> <style> header{ background-color:darkcyan; position: fixed; left: 0px; top: 0px; width: 100%; height: 20%; text-align: center; z-index: 3; } header p{ color: white; font-size: 50px; font-weight: 500; text-align: center; } section{ font-size: 30px; position:absolute; top:22%; margin-left:10%; width:90%; z-index: 1; padding-bottom: 10%;} section hr{ width:90%; margin-left: 0; } section p{ font-weight:700; } section table{ width:90%; } section table th{ color:teal; font-size:23px; font-weight: 600; width:25%; text-align: center; } section table td{ width:25%; font-size:20px; font-weight: lighter; color:black; text-align: center; } </style> <title> YG </title> </head> <body> <header><p> Pill Dispenser </p> </header> <section> <p>Pills</p> <hr> <table> <tr> <th>ID</th> <th>Name</th> <th>Stock</th> <th>Unit Price</th> </tr>'
     pillstr=' '
     for pills in allpill:
